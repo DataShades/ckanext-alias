@@ -1,0 +1,17 @@
+version: 1
+groups:
+  - annotation: ckanext-alias
+    options:
+      - key: ckanext.alias.autosave_alias
+        type: bool
+        description: Specify whether a new alias will be created automatically on dataset update
+        default: False
+
+      - key: ckanext.alias.alias_fieldname
+        description: Specify an alias field name in dataset schema
+        default: alias
+
+      - key: ckanext.alias.dataset_types
+        type: list
+        description: Specify a list of dataset types that is going to work with alias
+        default: dataset
