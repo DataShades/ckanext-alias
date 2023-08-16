@@ -1,11 +1,9 @@
 from __future__ import annotations
-from ast import alias
 
 import json
 from typing import Any
 
 import ckan.plugins.toolkit as tk
-from ckan import model
 
 import ckanext.alias.config as alias_config
 

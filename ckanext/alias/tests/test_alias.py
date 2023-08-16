@@ -2,15 +2,13 @@ from __future__ import annotations
 
 from typing import Any
 
-import pytest
-
-import ckan.tests.factories as factories
 import ckan.plugins.toolkit as tk
+import ckan.tests.factories as factories
+import pytest
 from ckan.tests.helpers import call_action
 
-import ckanext.alias.utils as alias_utils
 import ckanext.alias.config as alias_config
-import ckanext.alias.logic.validators as alias_validators
+import ckanext.alias.utils as alias_utils
 
 
 @pytest.mark.usefixtures("with_plugins")

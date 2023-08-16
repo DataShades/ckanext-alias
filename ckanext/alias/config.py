@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-
 import ckan.plugins.toolkit as tk
-
 
 CONFIG_AUTO_SAVE_ALIAS = "ckanext.alias.autosave_alias"
 DEFAULT_AUTO_SAVE_ALIAS = False

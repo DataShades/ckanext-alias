@@ -4,13 +4,12 @@ from __future__ import annotations
 import logging
 from typing import Union
 
-from flask import Blueprint
-
+from ckan import model
 from ckan.common import session as flask_session
+from ckan.plugins import toolkit as tk
 from ckan.types import Response
 from ckan.views import dataset as dataset_view
-from ckan.plugins import toolkit as tk
-from ckan import model
+from flask import Blueprint
 
 import ckanext.alias.utils as alias_utils
 

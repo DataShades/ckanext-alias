@@ -15,13 +15,13 @@ def alias_unique(
 ) -> Any:
     """Ensures that the alias unique and not occupied by another dataset"""
     aliases: list[str] = convert_to_json_if_string(data[key], context)
-    pkg_id = data[('id',)]
+    pkg_id = data[("id",)]
 
     if not aliases:
         return
 
     if len(aliases) != len(set(aliases)):
-        raise tk.Invalid(f"Alias must be unique. Remove duplicates.")
+        raise tk.Invalid("Alias must be unique. Remove duplicates.")
 
     for alias in aliases:
         pkg_dict = alias_utils.get_package_by_alias(alias)

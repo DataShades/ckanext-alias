@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import logging
 
-import ckan.plugins.toolkit as tk
 import ckan.model as model
+import ckan.plugins.toolkit as tk
 import ckan.types as types
 
 import ckanext.alias.config as alias_config
