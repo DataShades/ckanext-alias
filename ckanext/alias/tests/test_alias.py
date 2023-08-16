@@ -23,7 +23,7 @@ class TestAliasConfiguration:
         alias_utils.extension_is_configured()
 
 
-@pytest.mark.usefixtures("reset_db_once", "with_plugins")
+@pytest.mark.usefixtures("reset_db_once", "clean_index", "with_plugins")
 class TestAutomaticAlias:
     @pytest.mark.ckan_config("ckanext.alias.autosave_alias", "true")
     def test_automatic_alias_is_enabled(self):
@@ -101,3 +101,21 @@ class TestAliasValidators:
             tk.ValidationError, match="Name 'alias' is already occupied by an alias"
         ):
             factories.Dataset(name="alias")
+
+    @pytest.mark.parametrize(
+        ("alias", "valid"),
+        [
+            ("new-alias", True),
+            ("one-two-tree", True),
+            ("new_alias", True),
+            ("123", True),
+            ("not an alias", False),
+            ("$100", False),
+        ],
+    )
+    def test_alias_must_be_proper_slug(self, alias: str, valid: bool):
+        if valid:
+            factories.Dataset(alias=alias)
+        else:
+            with pytest.raises(tk.ValidationError):
+                factories.Dataset(alias=alias)

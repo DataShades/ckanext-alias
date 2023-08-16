@@ -5,6 +5,7 @@ from typing import Any
 
 import ckan.plugins.toolkit as tk
 from ckan.logic.converters import convert_to_json_if_string
+from ckan.logic.validators import name_validator
 from ckan.types import Context, FlattenDataDict, FlattenErrorDict, FlattenKey
 
 import ckanext.alias.utils as alias_utils
@@ -42,5 +43,17 @@ def name_doesnt_conflict_with_alias(v: str, context) -> Any:
 
     if alias_utils.get_package_by_alias(v):
         raise tk.Invalid(f"Name '{v}' is already occupied by an alias.")
+
+    return v
+
+
+def alias_valid(v: str, context) -> Any:
+    aliases = alias_utils.parse_alias_field(v)
+
+    for alias in aliases:
+        try:
+            name_validator(alias, context)
+        except tk.Invalid as e:
+            raise tk.Invalid(str(e))
 
     return v
