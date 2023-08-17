@@ -5,7 +5,10 @@ The extension allow you to create a URL aliases for datasets. For example, if yo
 
 Creating and managing aliases is easy. There are two ways to create an alias.
 1. An alias could be created automatically, if the `ckanext.alias.autosave_alias` config option in enabled. (_see [Config settings section](#config-settings) below_)
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+    ![Alt Text](doc/auto-alias.gif)
+    The automatic creation will be triggered only if the new `name` differs from the previous one.
+2. An alias could be created manually via dataset create/edit form.
+    ![Alt Text](doc/manual-alias.gif)
 
 ## Requirements
 
