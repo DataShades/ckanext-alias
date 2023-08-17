@@ -21,7 +21,21 @@ Also, the extension relies on `ckanext-scheming` to add an `alias` field into sc
 2. Add `alias` to the `ckan.plugins` setting in your CKAN config file.
 
 ### Add an `alias` field to schema
-The extension requires
+`ckanext-alias` requires adjusting a dataset schema, to add an alias field that will store all the information. The extension provides multiple presets, which you could use to easilly adjust the schema.
+
+
+1. Add presets `scheming.presets = ckanext.alias:presets.yaml`
+2. Open you schema. You have to edit `name` field and add a new `alias` field:
+	```
+	- field_name: name
+	  preset: dataset_alias_slug
+
+	- field_name: alias
+	   preset: dataset_alias
+  ```
+ - The `alias` field name must be the same as `ckanext.alias.alias_fieldname`.
+ - Check `presets.yaml` file to see the presets in details.
+ - If your `name` field was altered  before, you don't have to use the `dataset_alias_slug` preset. Just add the `name_doesnt_conflict_with_alias` validator to list of yours.
 
 ## Config settings
 
