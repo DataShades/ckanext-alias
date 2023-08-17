@@ -1,4 +1,5 @@
 
+
 [![Tests](https://github.com/mutantsan/ckanext-alias/workflows/Tests/badge.svg?branch=master)](https://github.com/mutantsan/ckanext-alias/actions)
 
 The extension allow you to create a URL aliases for datasets. For example, if you have a dataset with `my-dataset` name, it can be accessed via URL like that `https://your-domain/dataset/my-dataset`. Now you could add multiple aliases  that will redirect user to the dataset.
@@ -14,6 +15,7 @@ Creating and managing aliases is easy. There are two ways to create an alias.
 
 The extension has only been tested with CKAN `2.10.1` and will most likely not work with versions below `2.10`.
 Also, the extension relies on `ckanext-scheming` to add an `alias` field into schema. It won't work without scheming.
+If you don't know what is it and how to use it, check its [repo](https://github.com/ckan/ckanext-scheming).
 
 ## Installation
 
@@ -26,16 +28,18 @@ Also, the extension relies on `ckanext-scheming` to add an `alias` field into sc
 
 1. Add presets `scheming.presets = ckanext.alias:presets.yaml`
 2. Open you schema. You have to edit `name` field and add a new `alias` field:
+
 	```
 	- field_name: name
 	  preset: dataset_alias_slug
 
 	- field_name: alias
-	   preset: dataset_alias
-  ```
- - The `alias` field name must be the same as `ckanext.alias.alias_fieldname`.
- - Check `presets.yaml` file to see the presets in details.
- - If your `name` field was altered  before, you don't have to use the `dataset_alias_slug` preset. Just add the `name_doesnt_conflict_with_alias` validator to list of yours.
+	  preset: dataset_alias
+	```
+
+	- The `alias` field name must be the same as `ckanext.alias.alias_fieldname`.
+	- Check `presets.yaml` file to see the presets in details.
+	- If your `name` field was altered  before, you don't have to use the `dataset_alias_slug` preset. Just add the `name_doesnt_conflict_with_alias` validator to list of yours.
 
 ## Config settings
 
