@@ -7,7 +7,7 @@ presets:
       field_name: dataset_alias
       label: Aliases
       form_placeholder: An alias for a dataset
-      validators: scheming_required scheming_multiple_text alias_unique alias_valid
+      validators: scheming_required scheming_multiple_text alias_unique alias_valid alias_doesnt_conflict_with_name
       form_snippet: alias.html
       display_snippet: alias.html
       output_validators: scheming_load_json

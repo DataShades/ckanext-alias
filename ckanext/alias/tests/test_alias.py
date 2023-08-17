@@ -119,3 +119,27 @@ class TestAliasValidators:
         else:
             with pytest.raises(tk.ValidationError):
                 factories.Dataset(alias=alias)
+
+    def test_alias_is_occupied_by_name(self):
+        dataset: dict[str, Any] = factories.Dataset()  # type: ignore
+
+        with pytest.raises(
+            tk.ValidationError, match="Alias points to an existing dataset name or ID"
+        ):
+            factories.Dataset(alias=dataset["name"])
+
+    def test_alias_is_occupied_by_id(self):
+        dataset: dict[str, Any] = factories.Dataset()  # type: ignore
+
+        with pytest.raises(
+            tk.ValidationError, match="Alias points to an existing dataset name or ID"
+        ):
+            factories.Dataset(alias=dataset["id"])
+
+    def test_allow_setting_alias_same_as_current_pkg_name_or_id(self):
+        """Why do we need it? We have a autoalias creating feature. When the user
+        updates the dataset and changing the `name`, we are saving it as alias. """
+        dataset: dict[str, Any] = factories.Dataset()  # type: ignore
+
+        dataset = call_action("package_patch", id=dataset["id"], alias=dataset["name"])
+        dataset = call_action("package_patch", id=dataset["id"], alias=dataset["id"])

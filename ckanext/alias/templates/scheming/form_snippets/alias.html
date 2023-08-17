@@ -2,7 +2,7 @@
 
 {% import 'macros/form.html' as form %}
 
-{% macro multiple_text(element, error) %}
+{% macro multiple_text(element) %}
   <li class="multiple-text-field control-full">
     <input
       type="text"
@@ -12,7 +12,6 @@
       {{ form.attributes(field.form_attrs if 'form_attrs' in field else {}) }} />
     <a class="btn btn-default btn-multiple-remove" name="multiple-remove" href="javascript:;"
       >{% block delete_button_text %}{{ _('Remove') }}{% endblock %}</a>
-      {% if error and error is iterable %}<span class="error-block">{{ error|join(', ') }}</span>{% endif %}
   </li>
 {% endmacro %}
 
@@ -28,9 +27,20 @@
   field.classes if 'classes' in field else ['control-medium'],
   is_required=h.scheming_field_required(field)) %}
   <fieldset name="{{ field.field_name }}" class="scheming-fieldset scheming-fieldset-alias" data-module="alias-multiple-input">
+    {% set errors = errors[field.field_name] %}
+    {% if errors and errors is iterable %}
+        <div class="error-explanation alert alert-error">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
     <ol class="multiple-text-group">
       {%- for element in values -%}
-        {{ multiple_text(element, errors[field.field_name] if loop.index == 1 else "") }}
+        {{ multiple_text(element) }}
       {%- endfor -%}
     </ol>
 
