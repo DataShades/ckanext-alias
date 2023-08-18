@@ -11,6 +11,13 @@ import ckanext.alias.config as alias_config
 import ckanext.alias.utils as alias_utils
 
 
+@pytest.fixture
+def sysadmin_env():
+    user = factories.SysadminWithToken()
+    env = {"Authorization": user["token"]}  # type: ignore
+    return env
+
+
 @pytest.mark.usefixtures("with_plugins")
 class TestAliasConfiguration:
     @pytest.mark.ckan_config("ckanext.alias.dataset_types", "package")
@@ -138,8 +145,28 @@ class TestAliasValidators:
 
     def test_allow_setting_alias_same_as_current_pkg_name_or_id(self):
         """Why do we need it? We have a autoalias creating feature. When the user
-        updates the dataset and changing the `name`, we are saving it as alias. """
+        updates the dataset and changing the `name`, we are saving it as alias."""
         dataset: dict[str, Any] = factories.Dataset()  # type: ignore
 
         dataset = call_action("package_patch", id=dataset["id"], alias=dataset["name"])
         dataset = call_action("package_patch", id=dataset["id"], alias=dataset["id"])
+
+
+@pytest.mark.usefixtures("reset_db_once", "clean_index", "with_plugins")
+class TestAliasView:
+    def test_new_endpoint_is_accessible(self, app, sysadmin_env):
+        response = app.get(tk.url_for("dataset.new"), extra_environ=sysadmin_env)
+
+        assert response.status_code == 200
+        assert "/dataset/new" in response.request.url
+
+        response = app.post(
+            tk.url_for("dataset.new"),
+            extra_environ=sysadmin_env,
+            data={
+                "name": "new-dataset",
+            },
+            follow_redirects=False,
+        )
+
+        assert call_action("package_show", id="new-dataset")

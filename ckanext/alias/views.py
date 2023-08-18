@@ -41,4 +41,5 @@ def read(package_type: str, name_or_id: str) -> Union[Response, str]:
     return tk.redirect_to("{}.read".format(package_type), id=name_or_id)
 
 
+dataset.add_url_rule("/new", view_func=dataset_view.CreateView.as_view(str("new")))
 dataset.add_url_rule("/<name_or_id>", view_func=read)
