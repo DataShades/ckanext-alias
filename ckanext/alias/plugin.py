@@ -44,8 +44,6 @@ class AliasPlugin(plugins.SingletonPlugin):
         if not pkg_dict.get(alias_fieldname):
             return pkg_dict
 
-        pkg_dict[f"vocab_{alias_fieldname}"] = alias_utils.parse_alias_field(
-            pkg_dict[alias_fieldname]
-        )
+        pkg_dict[f"vocab_{alias_fieldname}"] = pkg_dict[alias_fieldname].split(",")
 
         return pkg_dict

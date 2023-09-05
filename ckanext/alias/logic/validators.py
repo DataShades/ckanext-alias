@@ -107,4 +107,16 @@ def _get_package_id_from_data(data: FlattenDataDict) -> str:
     if not pkg_id or pkg_id is df.missing:
         return ""
 
-    return pkg_id # type: ignore
+    return pkg_id  # type: ignore
+
+
+def aliases_to_string(
+    key: FlattenKey, data: FlattenDataDict, errors: FlattenErrorDict, context: Context
+) -> Any:
+    aliases = alias_utils.parse_alias_field(data[key])
+
+    data[key] = ",".join(aliases)
+
+
+def aliases_from_string(value, context):
+    return value.split(",")

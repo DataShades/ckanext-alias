@@ -7,10 +7,10 @@ presets:
       field_name: dataset_alias
       label: Aliases
       form_placeholder: An alias for a dataset
-      validators: scheming_required scheming_multiple_text alias_unique alias_valid alias_doesnt_conflict_with_name
+      validators: scheming_required scheming_multiple_text alias_unique alias_valid alias_doesnt_conflict_with_name aliases_to_string
       form_snippet: alias.html
       display_snippet: alias.html
-      output_validators: scheming_load_json
+      output_validators: aliases_from_string
       form_attrs:
         data-module: alias-slug
         alias-slug-input: true
