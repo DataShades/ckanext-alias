@@ -51,4 +51,4 @@ def _save_alias(data_dict: types.DataDict, alias: str) -> None:
 
     aliases.append(alias)
 
-    data_dict[alias_fieldname] = list(set(aliases))
+    data_dict[alias_fieldname] = ",".join(set(aliases))

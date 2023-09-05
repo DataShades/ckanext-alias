@@ -74,13 +74,13 @@ class TestAliasRedirect:
         assert response.status_code == 200
 
     def test_with_multiple_aliases(self, app):
-        test_aliases = ["alias1", "alias2"]
+        test_aliases = "alias1,alias2"
         dataset: dict[str, Any] = factories.Dataset(alias=test_aliases)  # type: ignore
 
         response = app.get(tk.url_for("dataset.read", id=dataset["name"]))
         assert response.status_code == 200
 
-        for alias in test_aliases:
+        for alias in test_aliases.split(","):
             response = app.get(tk.url_for("dataset.read", id=alias))
             assert response.status_code == 200
 
@@ -91,18 +91,18 @@ class TestAliasValidators:
         with pytest.raises(
             tk.ValidationError, match="Alias must be unique. Remove duplicates"
         ):
-            factories.Dataset(alias=["alias", "alias"])
+            factories.Dataset(alias="alias,alias")
 
     def test_alias_is_occupied(self):
-        factories.Dataset(alias=["alias"])
+        factories.Dataset(alias="alias")
 
         with pytest.raises(
             tk.ValidationError, match="Alias 'alias' is already occupied"
         ):
-            factories.Dataset(alias=["alias"])
+            factories.Dataset(alias="alias")
 
     def test_name_is_occupied_by_alias(self):
-        factories.Dataset(alias=["alias"])
+        factories.Dataset(alias="alias")
 
         with pytest.raises(
             tk.ValidationError, match="Name 'alias' is already occupied by an alias"

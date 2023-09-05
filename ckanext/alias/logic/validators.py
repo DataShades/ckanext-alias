@@ -119,4 +119,7 @@ def aliases_to_string(
 
 
 def aliases_from_string(value, context):
-    return value.split(",")
+    if isinstance(value, list):
+        return value
+
+    return value.split(",") if value else []
