@@ -8,6 +8,7 @@ import ckan.types as types
 
 import ckanext.alias.config as alias_config
 import ckanext.alias.utils as alias_utils
+import ckanext.alias.logic.validators as alias_validators
 
 
 @tk.blanket.actions
@@ -44,6 +45,8 @@ class AliasPlugin(plugins.SingletonPlugin):
         if not pkg_dict.get(alias_fieldname):
             return pkg_dict
 
-        pkg_dict[f"vocab_{alias_fieldname}"] = pkg_dict[alias_fieldname].split(",")
+        pkg_dict[f"vocab_{alias_fieldname}"] = alias_validators.aliases_from_string(
+            pkg_dict[alias_fieldname], {}
+        )
 
         return pkg_dict

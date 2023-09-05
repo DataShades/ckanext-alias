@@ -118,7 +118,7 @@ def aliases_to_string(
     data[key] = ",".join(aliases)
 
 
-def aliases_from_string(value, context):
+def aliases_from_string(value: str | list[str], context) -> list[str]:
     if isinstance(value, list):
         return value
 
