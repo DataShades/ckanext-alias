@@ -48,5 +48,6 @@ class AliasPlugin(plugins.SingletonPlugin):
         pkg_dict[f"vocab_{alias_fieldname}"] = alias_validators.aliases_from_string(
             pkg_dict[alias_fieldname], {}
         )
+        pkg_dict.pop(alias_fieldname)
 
         return pkg_dict
