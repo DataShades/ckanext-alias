@@ -1,6 +1,6 @@
 
 
-[![Tests](https://github.com/mutantsan/ckanext-alias/workflows/Tests/badge.svg?branch=master)](https://github.com/mutantsan/ckanext-alias/actions)
+[![Tests](https://github.com/DataShades/ckanext-alias/workflows/Tests/badge.svg?branch=master)](https://github.com/DataShades/ckanext-alias/actions)
 
 The extension allow you to create a URL aliases for datasets. For example, if you have a dataset with `my-dataset` name, it can be accessed via URL like that `https://your-domain/dataset/my-dataset`. Now you could add multiple aliases  that will redirect user to the dataset.
 
@@ -64,7 +64,7 @@ ckanext.alias.autosave_alias = true
 
 To install ckanext-alias for development, activate your CKAN virtualenv and do:
 
-    git clone https://github.com/mutantsan/ckanext-alias.git
+    git clone https://github.com/DataShades/ckanext-alias.git
     cd ckanext-alias
     python setup.py develop
     pip install -r dev-requirements.txt
