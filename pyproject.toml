@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ckanext-alias"
-version = "1.0.11"
+version = "1.1.0"
 description = "An extension to create URL aliases for datasets"
 authors = [
     {name = "DataShades", email = "datashades@linkdigital.com.au"},
